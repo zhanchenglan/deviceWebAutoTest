@@ -1,0 +1,83 @@
+2022-03-13 17:50:31,357 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - Open browser
+2022-03-13 17:50:56,031 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见
+2022-03-13 17:50:56,055 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见，等待结束。等待的开始时间：2022-03-13 17:50:56.033345,等待的结束时间2022-03-13 17:50:56.055392,等待时长：0
+2022-03-13 17:50:56,056 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 选择渠道类别查找元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')
+2022-03-13 17:50:56,067 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 选择渠道类别点击元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')
+2022-03-13 17:50:57,206 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')可见
+2022-03-13 17:50:57,240 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')可见，等待结束。等待的开始时间：2022-03-13 17:50:57.208029,等待的结束时间2022-03-13 17:50:57.239532,等待时长：0
+2022-03-13 17:50:57,242 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 选择渠道类别查找元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')
+2022-03-13 17:50:57,254 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 选择渠道类别点击元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')
+2022-03-13 17:50:58,371 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-13 17:50:58,394 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见，等待结束。等待的开始时间：2022-03-13 17:50:58.372700,等待的结束时间2022-03-13 17:50:58.393520,等待时长：0
+2022-03-13 17:50:58,395 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 进入规则链页面查找元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-13 17:50:58,403 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 进入规则链页面点击元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-13 17:50:58,521 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')可见
+2022-03-13 17:50:58,552 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')可见，等待结束。等待的开始时间：2022-03-13 17:50:58.521406,等待的结束时间2022-03-13 17:50:58.551729,等待时长：0
+2022-03-13 17:50:58,553 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 添加规则链查找元素：('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')
+2022-03-13 17:50:58,568 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 添加规则链点击元素：('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')
+2022-03-13 17:50:58,665 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="ruleChainName"]')可见
+2022-03-13 17:50:59,214 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="ruleChainName"]')可见，等待结束。等待的开始时间：2022-03-13 17:50:58.665674,等待的结束时间2022-03-13 17:50:59.213728,等待时长：0
+2022-03-13 17:50:59,215 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 添加规则链查找元素：('xpath', '//*[@id="ruleChainName"]')
+2022-03-13 17:50:59,229 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 添加规则链:元素：('xpath', '//*[@id="ruleChainName"]')输入内容：规则链测试
+2022-03-13 17:50:59,311 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="ruleChainDescription"]')可见
+2022-03-13 17:50:59,328 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="ruleChainDescription"]')可见，等待结束。等待的开始时间：2022-03-13 17:50:59.312375,等待的结束时间2022-03-13 17:50:59.328995,等待时长：0
+2022-03-13 17:50:59,329 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '//*[@id="ruleChainDescription"]')
+2022-03-13 17:50:59,335 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 点击元素：('xpath', '//*[@id="ruleChainDescription"]')
+2022-03-13 17:50:59,364 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="ruleChainDescription"]')可见
+2022-03-13 17:50:59,375 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="ruleChainDescription"]')可见，等待结束。等待的开始时间：2022-03-13 17:50:59.365227,等待的结束时间2022-03-13 17:50:59.375554,等待时长：0
+2022-03-13 17:50:59,376 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '//*[@id="ruleChainDescription"]')
+2022-03-13 17:50:59,381 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - :元素：('xpath', '//*[@id="ruleChainDescription"]')输入内容：web自动化测试规则链
+2022-03-13 17:51:02,630 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div')可见
+2022-03-13 17:51:03,881 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div')可见，等待结束。等待的开始时间：2022-03-13 17:51:02.631893,等待的结束时间2022-03-13 17:51:03.881151,等待时长：1
+2022-03-13 17:51:03,882 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div')
+2022-03-13 17:51:03,892 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 进行滚动条操作('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div')
+2022-03-13 17:51:04,903 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div')可见
+2022-03-13 17:51:04,927 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div')可见，等待结束。等待的开始时间：2022-03-13 17:51:04.904105,等待的结束时间2022-03-13 17:51:04.927975,等待时长：0
+2022-03-13 17:51:04,928 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div')
+2022-03-13 17:51:09,034 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="name"]')可见
+2022-03-13 17:51:09,073 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="name"]')可见，等待结束。等待的开始时间：2022-03-13 17:51:09.035885,等待的结束时间2022-03-13 17:51:09.071098,等待时长：0
+2022-03-13 17:51:09,074 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '//*[@id="name"]')
+2022-03-13 17:51:09,089 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - :元素：('xpath', '//*[@id="name"]')输入内容：save to MySQL
+2022-03-13 17:51:09,236 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '/html/body/div[5]/div/div[2]/div/div[2]/div[3]/button[2]')可见
+2022-03-13 17:51:09,254 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '/html/body/div[5]/div/div[2]/div/div[2]/div[3]/button[2]')可见，等待结束。等待的开始时间：2022-03-13 17:51:09.237420,等待的结束时间2022-03-13 17:51:09.254509,等待时长：0
+2022-03-13 17:51:09,255 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '/html/body/div[5]/div/div[2]/div/div[2]/div[3]/button[2]')
+2022-03-13 17:51:09,260 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 点击元素：('xpath', '/html/body/div[5]/div/div[2]/div/div[2]/div[3]/button[2]')
+2022-03-13 17:51:09,309 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div')可见
+2022-03-13 17:51:09,330 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div')可见，等待结束。等待的开始时间：2022-03-13 17:51:09.309883,等待的结束时间2022-03-13 17:51:09.330304,等待时长：0
+2022-03-13 17:51:09,332 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div')
+2022-03-13 17:51:09,338 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 进行滚动条操作('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div')
+2022-03-13 17:51:10,347 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div')可见
+2022-03-13 17:51:10,370 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div')可见，等待结束。等待的开始时间：2022-03-13 17:51:10.348156,等待的结束时间2022-03-13 17:51:10.370898,等待时长：0
+2022-03-13 17:51:10,372 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div')
+2022-03-13 17:51:14,493 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="name"]')可见
+2022-03-13 17:51:15,169 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="name"]')可见，等待结束。等待的开始时间：2022-03-13 17:51:14.494745,等待的结束时间2022-03-13 17:51:15.169896,等待时长：0
+2022-03-13 17:51:15,171 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '//*[@id="name"]')
+2022-03-13 17:51:15,186 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - :元素：('xpath', '//*[@id="name"]')输入内容：车辆信息
+2022-03-13 17:51:15,282 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="dataType"]')可见
+2022-03-13 17:51:15,307 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="dataType"]')可见，等待结束。等待的开始时间：2022-03-13 17:51:15.282344,等待的结束时间2022-03-13 17:51:15.306276,等待时长：0
+2022-03-13 17:51:15,307 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '//*[@id="dataType"]')
+2022-03-13 17:51:15,317 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - :元素：('xpath', '//*[@id="dataType"]')输入内容：ruleTab/vehicleInfo
+2022-03-13 17:51:15,487 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="payloadFormat"]')可见
+2022-03-13 17:51:15,510 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="payloadFormat"]')可见，等待结束。等待的开始时间：2022-03-13 17:51:15.487732,等待的结束时间2022-03-13 17:51:15.509039,等待时长：0
+2022-03-13 17:51:15,512 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '//*[@id="payloadFormat"]')
+2022-03-13 17:51:15,518 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - :元素：('xpath', '//*[@id="payloadFormat"]')输入内容：{"devId": "123456", "vin": "123456", "color": "白色", "type": "吉利帝豪s", "uploadTime": "2021-08-26 10:00:00"}
+2022-03-13 17:51:16,135 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="type"]/label[1]/span[2]/div')可见
+2022-03-13 17:51:16,159 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="type"]/label[1]/span[2]/div')可见，等待结束。等待的开始时间：2022-03-13 17:51:16.137057,等待的结束时间2022-03-13 17:51:16.157435,等待时长：0
+2022-03-13 17:51:16,162 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '//*[@id="type"]/label[1]/span[2]/div')
+2022-03-13 17:51:16,169 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 点击元素：('xpath', '//*[@id="type"]/label[1]/span[2]/div')
+2022-03-13 17:51:16,240 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="type"]/label[1]/span[2]/div')可见
+2022-03-13 17:51:16,267 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="type"]/label[1]/span[2]/div')可见，等待结束。等待的开始时间：2022-03-13 17:51:16.240940,等待的结束时间2022-03-13 17:51:16.267646,等待时长：0
+2022-03-13 17:51:16,268 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 查找元素：('xpath', '//*[@id="type"]/label[1]/span[2]/div')
+2022-03-13 17:51:16,274 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 点击元素：('xpath', '//*[@id="type"]/label[1]/span[2]/div')
+2022-03-13 17:51:16,383 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '/html/body/div[6]/div/div[2]/div/div[2]/div[3]/button[2]')可见
+2022-03-13 17:51:48,028 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - ERROR - 等待可见元素失败！
+2022-03-13 17:51:48,355 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-13\_20220313_175148.png
+2022-03-13 17:51:48,405 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-13 17:51:48,451 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见，等待结束。等待的开始时间：2022-03-13 17:51:48.405437,等待的结束时间2022-03-13 17:51:48.450100,等待时长：0
+2022-03-13 17:51:48,452 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 进入规则链页面查找元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-13 17:51:48,501 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 进入规则链页面点击元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-13 17:51:49,587 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - ERROR - 元素点击操作失败！！！
+2022-03-13 17:51:49,879 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-13\进入规则链页面_20220313_175149.png
+2022-03-13 17:51:49,931 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[1]/div[2]/button')可见
+2022-03-13 17:52:20,310 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - ERROR - 等待可见元素失败！
+2022-03-13 17:52:20,656 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-13\20220313-175030.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-13\_20220313_175220.png

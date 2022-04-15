@@ -1,0 +1,31 @@
+2022-03-16 17:51:05,899 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - Open browser
+2022-03-16 17:51:27,356 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见
+2022-03-16 17:51:27,398 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见，等待结束。等待的开始时间：2022-03-16 17:51:27.357126,等待的结束时间2022-03-16 17:51:27.397793,等待时长：0
+2022-03-16 17:51:27,398 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - 选择渠道类别查找元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')
+2022-03-16 17:51:27,408 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - 选择渠道类别点击元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')
+2022-03-16 17:51:34,049 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 元素点击操作失败！！！
+2022-03-16 17:51:34,055 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 截屏失败!
+2022-03-16 17:51:34,121 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-16 17:51:34,123 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 等待可见元素失败！
+2022-03-16 17:51:34,125 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 截屏失败!
+2022-03-16 17:51:35,172 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - 等待元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见
+2022-03-16 17:51:35,174 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 等待可见元素失败！
+2022-03-16 17:51:35,176 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 截屏失败!
+2022-03-16 17:51:35,217 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - 等待元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见
+2022-03-16 17:51:35,224 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 等待可见元素失败！
+2022-03-16 17:51:35,227 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 截屏失败!
+2022-03-16 17:51:35,273 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')可见
+2022-03-16 17:51:35,275 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 等待可见元素失败！
+2022-03-16 17:51:35,277 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 截屏失败!
+2022-03-16 17:51:35,321 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')可见
+2022-03-16 17:51:35,323 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 等待可见元素失败！
+2022-03-16 17:51:35,325 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 截屏失败!
+2022-03-16 17:51:35,364 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - 等待元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见
+2022-03-16 17:51:35,368 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 等待可见元素失败！
+2022-03-16 17:51:35,370 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 截屏失败!
+2022-03-16 17:51:35,418 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-16 17:51:35,420 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 等待可见元素失败！
+2022-03-16 17:51:35,422 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 截屏失败!
+2022-03-16 17:51:35,460 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[1]/div[2]/button')可见
+2022-03-16 17:51:35,461 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 等待可见元素失败！
+2022-03-16 17:51:35,466 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-16\20220316-175100.log - ERROR - 截屏失败!

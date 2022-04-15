@@ -1,0 +1,14 @@
+2022-03-18 14:39:13,612 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - INFO - Open browser
+2022-03-18 14:39:30,273 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见
+2022-03-18 14:40:00,632 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - ERROR - 等待可见元素失败！
+2022-03-18 14:40:00,931 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-18\_20220318_144000.png
+2022-03-18 14:40:01,018 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-18 14:40:31,391 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - ERROR - 等待可见元素失败！
+2022-03-18 14:40:31,664 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-18\_20220318_144031.png
+2022-03-18 14:40:32,714 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - INFO - 等待元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见
+2022-03-18 14:40:51,070 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - ERROR - 等待可见元素失败！
+2022-03-18 14:41:03,269 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - ERROR - 截屏失败!
+2022-03-18 14:41:03,345 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - INFO - 等待元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见
+2022-03-18 14:41:15,542 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - ERROR - 等待可见元素失败！
+2022-03-18 14:41:27,775 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - ERROR - 截屏失败!
+2022-03-18 14:41:27,817 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-18\20220318-143911.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')可见

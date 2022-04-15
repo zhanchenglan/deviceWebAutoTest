@@ -1,0 +1,80 @@
+2022-03-15 15:52:40,074 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - Open browser
+2022-03-15 15:52:55,689 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见
+2022-03-15 15:52:55,706 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见，等待结束。等待的开始时间：2022-03-15 15:52:55.689068,等待的结束时间2022-03-15 15:52:55.706688,等待时长：0
+2022-03-15 15:52:55,708 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 选择渠道类别查找元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')
+2022-03-15 15:52:55,714 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 选择渠道类别点击元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')
+2022-03-15 15:52:56,818 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')可见
+2022-03-15 15:52:56,841 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')可见，等待结束。等待的开始时间：2022-03-15 15:52:56.818343,等待的结束时间2022-03-15 15:52:56.840882,等待时长：0
+2022-03-15 15:52:56,841 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 选择渠道类别查找元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')
+2022-03-15 15:52:56,853 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 选择渠道类别点击元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')
+2022-03-15 15:52:57,933 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-15 15:52:57,954 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见，等待结束。等待的开始时间：2022-03-15 15:52:57.933952,等待的结束时间2022-03-15 15:52:57.953257,等待时长：0
+2022-03-15 15:52:57,954 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入规则链页面查找元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-15 15:52:57,962 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入规则链页面点击元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-15 15:52:58,055 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')可见
+2022-03-15 15:52:58,077 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')可见，等待结束。等待的开始时间：2022-03-15 15:52:58.055567,等待的结束时间2022-03-15 15:52:58.075366,等待时长：0
+2022-03-15 15:52:58,079 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 添加规则链查找元素：('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')
+2022-03-15 15:52:58,085 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 添加规则链点击元素：('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')
+2022-03-15 15:52:58,141 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//*[@id="ruleChainName"]')可见
+2022-03-15 15:52:58,701 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//*[@id="ruleChainName"]')可见，等待结束。等待的开始时间：2022-03-15 15:52:58.142452,等待的结束时间2022-03-15 15:52:58.700006,等待时长：0
+2022-03-15 15:52:58,701 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 添加规则链查找元素：('xpath', '//*[@id="ruleChainName"]')
+2022-03-15 15:52:58,705 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 添加规则链:元素：('xpath', '//*[@id="ruleChainName"]')输入内容：规则链测试
+2022-03-15 15:52:58,769 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//*[@id="ruleChainDescription"]')可见
+2022-03-15 15:52:58,786 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//*[@id="ruleChainDescription"]')可见，等待结束。等待的开始时间：2022-03-15 15:52:58.770325,等待的结束时间2022-03-15 15:52:58.785976,等待时长：0
+2022-03-15 15:52:58,786 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 查找元素：('xpath', '//*[@id="ruleChainDescription"]')
+2022-03-15 15:52:58,791 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 点击元素：('xpath', '//*[@id="ruleChainDescription"]')
+2022-03-15 15:52:58,818 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//*[@id="ruleChainDescription"]')可见
+2022-03-15 15:52:58,828 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//*[@id="ruleChainDescription"]')可见，等待结束。等待的开始时间：2022-03-15 15:52:58.818542,等待的结束时间2022-03-15 15:52:58.827313,等待时长：0
+2022-03-15 15:52:58,828 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 查找元素：('xpath', '//*[@id="ruleChainDescription"]')
+2022-03-15 15:52:58,833 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - :元素：('xpath', '//*[@id="ruleChainDescription"]')输入内容：web自动化测试规则链
+2022-03-15 15:53:02,018 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('css selector', 'span.anticon.anticon-check > svg')可见
+2022-03-15 15:53:33,688 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - ERROR - 等待可见元素失败！
+2022-03-15 15:53:33,995 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-15\_20220315_155333.png
+2022-03-15 15:53:34,036 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-15 15:53:34,057 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见，等待结束。等待的开始时间：2022-03-15 15:53:34.037865,等待的结束时间2022-03-15 15:53:34.056285,等待时长：0
+2022-03-15 15:53:34,057 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入规则链页面查找元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-15 15:53:34,062 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入规则链页面点击元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-15 15:53:35,143 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - ERROR - 元素点击操作失败！！！
+2022-03-15 15:53:35,413 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-15\进入规则链页面_20220315_155335.png
+2022-03-15 15:53:36,463 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见
+2022-03-15 15:53:36,483 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见，等待结束。等待的开始时间：2022-03-15 15:53:36.463675,等待的结束时间2022-03-15 15:53:36.482391,等待时长：0
+2022-03-15 15:53:36,483 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入设备配置页面查找元素：('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')
+2022-03-15 15:53:36,489 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入设备配置页面点击元素：('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')
+2022-03-15 15:53:37,572 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - ERROR - 元素点击操作失败！！！
+2022-03-15 15:53:37,882 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-15\进入设备配置页面_20220315_155337.png
+2022-03-15 15:53:37,930 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见
+2022-03-15 15:53:37,944 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见，等待结束。等待的开始时间：2022-03-15 15:53:37.930710,等待的结束时间2022-03-15 15:53:37.944348,等待时长：0
+2022-03-15 15:53:37,945 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入设备配置页面查找元素：('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')
+2022-03-15 15:53:37,949 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入设备配置页面点击元素：('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')
+2022-03-15 15:53:39,019 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - ERROR - 元素点击操作失败！！！
+2022-03-15 15:53:39,334 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-15\进入设备配置页面_20220315_155339.png
+2022-03-15 15:53:39,387 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')可见
+2022-03-15 15:53:39,409 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')可见，等待结束。等待的开始时间：2022-03-15 15:53:39.388351,等待的结束时间2022-03-15 15:53:39.408930,等待时长：0
+2022-03-15 15:53:39,410 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入设备列表页面查找元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')
+2022-03-15 15:53:39,420 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入设备列表页面点击元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')
+2022-03-15 15:53:40,453 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - ERROR - 元素点击操作失败！！！
+2022-03-15 15:53:40,755 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-15\进入设备列表页面_20220315_155340.png
+2022-03-15 15:53:40,811 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')可见
+2022-03-15 15:53:40,827 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')可见，等待结束。等待的开始时间：2022-03-15 15:53:40.813012,等待的结束时间2022-03-15 15:53:40.826670,等待时长：0
+2022-03-15 15:53:40,828 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入设备列表页面查找元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')
+2022-03-15 15:53:40,834 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入设备列表页面点击元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')
+2022-03-15 15:53:41,912 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - ERROR - 元素点击操作失败！！！
+2022-03-15 15:53:42,194 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-15\进入设备列表页面_20220315_155341.png
+2022-03-15 15:53:42,261 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见
+2022-03-15 15:53:42,274 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见，等待结束。等待的开始时间：2022-03-15 15:53:42.261032,等待的结束时间2022-03-15 15:53:42.274329,等待时长：0
+2022-03-15 15:53:42,275 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入设备配置页面查找元素：('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')
+2022-03-15 15:53:42,280 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入设备配置页面点击元素：('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')
+2022-03-15 15:53:43,355 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - ERROR - 元素点击操作失败！！！
+2022-03-15 15:53:43,643 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-15\进入设备配置页面_20220315_155343.png
+2022-03-15 15:53:43,692 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-15 15:53:43,704 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见，等待结束。等待的开始时间：2022-03-15 15:53:43.692316,等待的结束时间2022-03-15 15:53:43.704235,等待时长：0
+2022-03-15 15:53:43,705 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入规则链页面查找元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-15 15:53:43,710 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 进入规则链页面点击元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-15 15:53:44,789 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - ERROR - 元素点击操作失败！！！
+2022-03-15 15:53:45,204 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-15\进入规则链页面_20220315_155344.png
+2022-03-15 15:53:45,254 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[1]/div[2]/button')可见
+2022-03-15 15:53:45,273 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - ：元素('xpath', '//*[@id="root"]/div/div/div[1]/div[2]/button')可见，等待结束。等待的开始时间：2022-03-15 15:53:45.255103,等待的结束时间2022-03-15 15:53:45.272978,等待时长：0
+2022-03-15 15:53:45,273 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 退出登录查找元素：('xpath', '//*[@id="root"]/div/div/div[1]/div[2]/button')
+2022-03-15 15:53:45,279 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 退出登录点击元素：('xpath', '//*[@id="root"]/div/div/div[1]/div[2]/button')
+2022-03-15 15:53:46,359 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - ERROR - 元素点击操作失败！！！
+2022-03-15 15:53:46,616 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-155238.log - INFO - 截屏成功,图片路径为E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Screenshots\2022-03-15\退出登录_20220315_155346.png

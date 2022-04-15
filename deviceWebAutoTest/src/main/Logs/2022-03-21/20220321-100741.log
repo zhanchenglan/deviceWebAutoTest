@@ -1,0 +1,7 @@
+2022-03-21 10:07:50,332 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-100741.log - INFO - Open browser
+2022-03-21 10:08:05,753 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-100741.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见
+2022-03-21 10:08:05,772 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-100741.log - ERROR - 等待可见元素失败！
+2022-03-21 10:08:05,775 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-100741.log - ERROR - 截屏失败!
+2022-03-21 10:08:06,719 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-100741.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-21 10:08:06,720 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-100741.log - ERROR - 等待可见元素失败！
+2022-03-21 10:08:06,721 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-100741.log - ERROR - 截屏失败!

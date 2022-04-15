@@ -1,0 +1,56 @@
+2022-03-21 16:52:45,405 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - Open browser
+2022-03-21 16:53:03,627 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见
+2022-03-21 16:53:03,647 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见，等待结束。等待的开始时间：2022-03-21 16:53:03.628036,等待的结束时间2022-03-21 16:53:03.647997,等待时长：0
+2022-03-21 16:53:03,648 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 选择渠道类别查找元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')
+2022-03-21 16:53:03,654 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 选择渠道类别点击元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')
+2022-03-21 16:53:04,827 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')可见
+2022-03-21 16:53:04,852 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')可见，等待结束。等待的开始时间：2022-03-21 16:53:04.827189,等待的结束时间2022-03-21 16:53:04.852343,等待时长：0
+2022-03-21 16:53:04,853 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 选择渠道类别查找元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')
+2022-03-21 16:53:04,863 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 选择渠道类别点击元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')
+2022-03-21 16:53:06,007 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-21 16:53:06,034 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见，等待结束。等待的开始时间：2022-03-21 16:53:06.007957,等待的结束时间2022-03-21 16:53:06.034770,等待时长：0
+2022-03-21 16:53:06,035 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 进入规则链页面查找元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-21 16:53:06,044 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 进入规则链页面点击元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-21 16:53:06,188 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')可见
+2022-03-21 16:53:06,223 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - ：元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')可见，等待结束。等待的开始时间：2022-03-21 16:53:06.189777,等待的结束时间2022-03-21 16:53:06.222554,等待时长：0
+2022-03-21 16:53:06,223 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 添加规则链查找元素：('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')
+2022-03-21 16:53:06,234 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 添加规则链点击元素：('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')
+2022-03-21 16:53:06,303 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="ruleChainName"]')可见
+2022-03-21 16:53:06,862 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - ：元素('xpath', '//*[@id="ruleChainName"]')可见，等待结束。等待的开始时间：2022-03-21 16:53:06.304089,等待的结束时间2022-03-21 16:53:06.861010,等待时长：0
+2022-03-21 16:53:06,863 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 添加规则链查找元素：('xpath', '//*[@id="ruleChainName"]')
+2022-03-21 16:53:06,875 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 添加规则链:元素：('xpath', '//*[@id="ruleChainName"]')输入内容：规则链测试
+2022-03-21 16:53:06,962 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="ruleChainDescription"]')可见
+2022-03-21 16:53:06,983 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - ：元素('xpath', '//*[@id="ruleChainDescription"]')可见，等待结束。等待的开始时间：2022-03-21 16:53:06.963606,等待的结束时间2022-03-21 16:53:06.983281,等待时长：0
+2022-03-21 16:53:06,984 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 查找元素：('xpath', '//*[@id="ruleChainDescription"]')
+2022-03-21 16:53:06,993 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 点击元素：('xpath', '//*[@id="ruleChainDescription"]')
+2022-03-21 16:53:07,033 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="ruleChainDescription"]')可见
+2022-03-21 16:53:07,049 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - ：元素('xpath', '//*[@id="ruleChainDescription"]')可见，等待结束。等待的开始时间：2022-03-21 16:53:07.034314,等待的结束时间2022-03-21 16:53:07.049008,等待时长：0
+2022-03-21 16:53:07,050 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 查找元素：('xpath', '//*[@id="ruleChainDescription"]')
+2022-03-21 16:53:07,055 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - :元素：('xpath', '//*[@id="ruleChainDescription"]')输入内容：web自动化测试规则链
+2022-03-21 16:53:10,305 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div')可见
+2022-03-21 16:53:16,718 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 等待可见元素失败！
+2022-03-21 16:53:16,729 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 截屏失败!
+2022-03-21 16:53:17,227 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-21 16:53:17,229 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 等待可见元素失败！
+2022-03-21 16:53:17,231 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 截屏失败!
+2022-03-21 16:53:18,318 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见
+2022-03-21 16:53:18,320 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 等待可见元素失败！
+2022-03-21 16:53:18,322 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 截屏失败!
+2022-03-21 16:53:18,359 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见
+2022-03-21 16:53:18,360 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 等待可见元素失败！
+2022-03-21 16:53:18,362 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 截屏失败!
+2022-03-21 16:53:18,401 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')可见
+2022-03-21 16:53:18,402 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 等待可见元素失败！
+2022-03-21 16:53:18,403 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 截屏失败!
+2022-03-21 16:53:18,442 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[2]/span')可见
+2022-03-21 16:53:18,443 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 等待可见元素失败！
+2022-03-21 16:53:18,445 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 截屏失败!
+2022-03-21 16:53:18,496 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//div[@id="root"]/div/aside/div/ul/li[3]/span')可见
+2022-03-21 16:53:18,497 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 等待可见元素失败！
+2022-03-21 16:53:18,498 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 截屏失败!
+2022-03-21 16:53:18,538 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-21 16:53:18,539 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 等待可见元素失败！
+2022-03-21 16:53:18,541 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 截屏失败!
+2022-03-21 16:53:18,582 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[1]/div[2]/button')可见
+2022-03-21 16:53:18,583 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 等待可见元素失败！
+2022-03-21 16:53:18,585 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-21\20220321-165241.log - ERROR - 截屏失败!

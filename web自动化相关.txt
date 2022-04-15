@@ -1,0 +1,284 @@
+selenium构成讲解：
+Selenium IDE：进行用例录制回放
+Selenium WebDriver：主要用作浏览器控制、页面元素选择和调试。
+Selenium Grid：提供了在不同机器的不同浏览器上运行selenium测试的能力（把测试脚本分布在不同的机器上，可以理解为分布式运行）
+selenium 架构图讲解：
+通过这些语言编写的脚本去调用selenium api,然后selenium通过浏览器驱动去控制浏览器进行自动化操作，比如我们可以通过chrome driver去操作谷歌浏览器
+
+selenium IDE录制的缺点：
+不灵活、代码冗余、不能复用
+不能进行元素等待
+
+
+selenium+Python图片识别：
+一、baidu-api识别验证码:
+https://blog.csdn.net/Paramete/article/details/103318162
+1.百度智能云上创建一个应用，获取AppID、API Key、Secret Key
+AppID：25761247
+API Key：b479kKc5yM4bw4ergQDYbUOF
+Secret Key：qXqtrao5Qh3t5fXiyewbYAaNSnBMXZcy
+领取免费资源后才能使用baidu-api ocr识别图片
+2.在pycharm中安装baidu-api插件
+3.代码：
+import time
+from PIL import Image
+from aip import AipOcr
+from selenium import webdriver
+
+# 验证码的获取和处理
+def get_captcha():
+    # 获取验证码图片
+    png = browser.find_element_by_id('verifyCodeImg')
+    png.screenshot('capt.png')  # 将图片截屏并保存
+    # 处理验证码
+    img = Image.open('capt.png')
+    img = img.convert('L')  # P模式转换为L模式(灰度模式默认阈值127)
+    count = 160  # 设定阈值
+    table = []
+    for i in range(256):
+        if i < count:
+            table.append(0)
+        else:
+            table.append(1)
+
+    img = img.point(table, '1')
+    img.save('captcha.png')  # 保存处理后的验证码
+
+
+# 验证码的识别
+def discern_captcha():
+    # 识别码
+    APP_ID = '25761247 '
+    API_KEY = 'b479kKc5yM4bw4ergQDYbUOF'
+    SECRET_KEY = 'qXqtrao5Qh3t5fXiyewbYAaNSnBMXZcy'
+    # 初始化对象
+    client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
+
+    # 读取图片
+    def get_file_content(file_path):
+        with open(file_path, 'rb') as f:
+            return f.read()
+
+    image = get_file_content('captcha.png')
+    # 定义参数变量
+    options = {'language_type': 'ENG', }  # 识别语言类型，默认为'CHN_ENG'中英文混合
+    #  调用通用文字识别
+    # result = client.basicGeneral(image, options)
+    # 高精度接口 basicAccurate
+    result = client.basicAccurate(image, options)
+    for word in result['words_result']:
+        captcha = (word['words'])
+        captchaCode = ''.join(captcha.split())
+        print('识别结果：' + captchaCode)
+
+        return captchaCode
+
+# 登录网页
+def login(captcha):
+    browser.find_element_by_id('username').send_keys('test-zhan')  # 找到账号框并输入账号
+    time.sleep(1)
+    browser.find_element_by_id('password').send_keys('123456')  # 找到密码框并输入密码
+    time.sleep(1)
+    browser.find_element_by_xpath('//*[@id="verifyCode"]/input').send_keys(captcha)  # 找到验证码框并输入验证码
+    browser.find_element_by_xpath(
+        '//*[@id="root"]/div/div/div/div[1]/div[2]/div/div[2]/form/div[5]/div/div/div').click()  # 找到登陆按钮并点击
+
+    time.sleep(3)
+    current_url = browser.current_url
+    print(current_url)
+    while current_url != "http://121.41.109.132/device-connectivity/device":
+        time.sleep(3)
+        get_captcha()
+        captcha = discern_captcha()
+        browser.find_element_by_id('username').send_keys('test-zhan')  # 找到账号框并输入账号
+        browser.find_element_by_id('password').send_keys('123456')  # 找到密码框并输入密码
+        browser.find_element_by_xpath('//*[@id="verifyCode"]/input').send_keys(captcha)  # 找到验证码框并输入验证码
+        browser.find_element_by_xpath(
+            '//*[@id="root"]/div/div/div/div[1]/div[2]/div/div[2]/form/div[5]/div/div/div').click()
+        time.sleep(3)
+        current_url = browser.current_url
+        print(current_url)
+    else:
+        pass
+
+if __name__ == '__main__':
+    browser = webdriver.Chrome()  # 实例化对象
+    url = 'http://121.41.109.132/device-connectivity/login'
+    browser.get(url)
+    browser.maximize_window()
+    get_captcha()
+    captcha = discern_captcha()
+    login(captcha)
+
+二、Tesseract识别验证码：
+1.安装Tesseract-OCR
+安装教程：https://www.jianshu.com/p/f7cb0b3f337a
+下载地址：https://github.com/UB-Mannheim/tesseract/wiki
+下载：tesseract-ocr-w64-setup-v5.0.1.20220118.exe
+下载完安装包后进行安装，安装之后设置系统环境变量：
+系统变量：
+Path：Tesseract安装路径
+检查是否安装成功：tesseract -v
+查看可以支持的语言：输入命令tesseract  --list-langs 
+识别图片代码：
+import pytest
+import pytesseract
+from PIL import Image
+
+file = r"E:\Fih\pictrue\verificationCode.png"
+
+# 建议图像识别前，先对图像进行灰度化和 二值化，以提高文本识别率
+image = Image.open(file)
+Img = image.convert('L')  # 灰度化
+# 自定义灰度界限，这里可以大于这个值为黑色，小于这个值为白色。threshold可根据实际情况进行调整(最大可为255)。
+threshold = 180
+table = []
+for i in range(256):
+    if i < threshold:
+        table.append(0)
+    else:
+        table.append(1)
+photo = Img.point(table, '1')  # 图片二值化
+# 保存处理好的图片
+newfile = r"E:\Fih\pictrue\verificationCode\verificationCode.png"
+photo.save(newfile)
+
+image = Image.open(newfile)
+# 解析图片，lang='chi_sim'表示识别简体中文，默认为English
+# 如果是只识别数字，可再加上参数config='--psm 6 --oem 3 -c tessedit_char_whitelist=0123456789'
+content = pytesseract.image_to_string(image, config='--psm 6 --oem 3 -c tessedit_char_whitelist=0123456789')
+print(content)
+
+if __name__ == '__main__':
+    pytest.main(["-q", "-s", "testTesseract.py"])
+	
+三、pytesseract:识别验证码：
+https://cloud.tencent.com/developer/article/1709709
+1.先安装Tesseract-OCR
+2.安装pillow和pytesseract
+找到pytesseract.py文件（文件位置：D:\work\python3.9.6\Lib\site-packages\pytesseract），修改tesseract.exe的路径
+tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'  (tesseract_cmd的安装路径)
+如何导入cv2：pycharm中安装插件opencv-python
+识别图片代码：
+import cv2 as cv
+import pytesseract
+import pytest
+from PIL import Image
+def recognize_text(image):
+    # 边缘保留滤波  去噪
+    blur = cv.pyrMeanShiftFiltering(image, sp=8, sr=60)
+    cv.imshow('dst', blur)
+    # 灰度图像
+    gray = cv.cvtColor(blur, cv.COLOR_BGR2GRAY)
+    # 二值化  设置阈值  自适应阈值的话 黄色的4会提取不出来
+    ret, binary = cv.threshold(gray, 185, 255, cv.THRESH_BINARY_INV)
+    print(f'二值化设置的阈值：{ret}')
+    cv.imshow('binary', binary)
+    # 逻辑运算  让背景为白色  字体为黑  便于识别
+    cv.bitwise_not(binary, binary)
+    cv.imshow('bg_image', binary)
+    # 识别
+    test_message = Image.fromarray(binary)
+    text = pytesseract.image_to_string(test_message)
+    print(f'识别结果：{text}')
+src = cv.imread(r"D:\testTesseract\test.png")
+cv.imshow('input image', src)
+recognize_text(src)
+
+
+详解Python中pyautogui库的最全使用方法:
+https://blog.csdn.net/qingfengxd1/article/details/108270159
+
+selenium+python：复用浏览器
+https://www.cnblogs.com/canghai1024/p/13490905.html
+使用步骤：
+1、将Chrome浏览器安装路径添加到系统环境变量中，关闭所有谷歌浏览器后执行
+chrome --remote-debugging-port=9222
+2、在步骤1打开的浏览器中登录要操作的网站，不要关闭浏览器；
+3、直接操作已经登录的页面，代码如下：
+class TestCase():
+    def setup(self):
+        options = webdriver.ChromeOptions()
+        options.debugger_address = '127.0.0.1:9222'
+        self.driver = webdriver.Chrome(options=options)
+
+    def test_authorityManagement(self):
+        self.driver.find_element_by_xpath('//*[@id="root"]/div/div/div[1]/div[1]/ul/li[2]').click()
+        self.driver.find_element_by_xpath('//*[@id="root"]/div/aside/div/ul/li[1]/div').click()
+
+if __name__ == '__main__':
+    pytest.main(["test_demo.py"])
+
+selenium-js处理实例：
+12306网站选择时间控件：
+    def testJs(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get("https://www.12306.cn/index/")
+        self.driver.execute_script("document.getElementById('train_date').value='2022-03-15'")
+		
+selenium-文件上传实例：
+打开百度图片地址，上传图片：
+    def test_demo(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get('https://www.baidu.com/')
+        time.sleep(1)
+        self.driver.find_element_by_xpath('//*[@id="form"]/span[1]/span[1]').click()
+        time.sleep(1)
+		#点击上传图片按钮
+        self.driver.find_element_by_xpath('//*[@id="form"]/div/div[2]/div[2]/input').send_keys(r'E:\Fih\pictrue\verificationCode.png')
+
+selenium-弹框处理：
+操作alert常用方法：
+driver.switchTo().alert():获取当前页面上的警告框
+text:返回alert/confirm/prompt中的文字信息
+accept():接受现有警告框
+dismiss():解散现有警告框
+实例：
+    def test_alert(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get('https://www.runoob.com/try/try.php?filename=jqueryui-api-droppable')
+        time.sleep(1)
+        self.driver.switch_to.frame('iframeResult')
+        time.sleep(1)
+        ActionChains(self.driver).drag_and_drop(self.driver.find_element_by_id('draggable'),
+                                                self.driver.find_element_by_id('droppable')).perform()
+        time.sleep(1)
+        self.driver.switch_to.alert.accept()
+        self.driver.switch_to.parent_frame()
+		#获取点击运行按钮文本内容
+        print(self.driver.find_element_by_id('submitBTN').text)
+		
+selenium+python-多浏览器处理：
+https://blog.csdn.net/sophiasofia/article/details/118021969
+    def test_browser(self):
+        browserName = os.getenv("browser")
+        if browserName == "chrome":
+            os.putenv("webdriver.chrome.driver", 'E:\python3.7.2\chromedriver')
+            self.driver = webdriver.Chrome()
+        elif browserName == "firefox":
+            os.putenv("webdriver.gecko.driver", 'E:\python3.7.2\geckodriver')
+            self.driver = webdriver.Firefox()
+
+        self.driver.get('https://www.baidu.com/')
+	
+	分开执行以下运行命令：
+	set browser=firefox
+	pytest test_demo.py
+	
+解决执行pytest命令时报错：ModuleNotFoundError: No module named 'src'：
+在conftest.py文件中增加：项目的所在路径
+sys.path.append(r"E:\Fih\web自动化测试相关\deviceWebAutoTest")
+或者：
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(os.path.split(rootPath)[0])
+	
+
+ pytest test_deviceManagement.py --html=./report/report.html
+ 
+, '-W','ignore:Module already imported:pytest.PytestWarning'
+
+本周工作进度：
+1.web自动化演示代码、ppt已完成
+2.uptane-console 接口自动化用例已完成
+3.api-push、api-veicle、uptane-director、uptane-image接口自动化用例(未完成)

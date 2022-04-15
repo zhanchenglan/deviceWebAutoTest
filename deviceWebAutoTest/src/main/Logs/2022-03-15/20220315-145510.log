@@ -1,0 +1,2 @@
+2022-03-15 14:55:12,844 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-145510.log - INFO - Open browser
+2022-03-15 14:55:29,479 - E:\Fih\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-15\20220315-145510.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见

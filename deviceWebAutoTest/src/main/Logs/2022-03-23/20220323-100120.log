@@ -1,0 +1,37 @@
+2022-03-23 10:01:22,456 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - Open browser
+2022-03-23 10:01:39,246 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见
+2022-03-23 10:01:39,270 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')可见，等待结束。等待的开始时间：2022-03-23 10:01:39.247814,等待的结束时间2022-03-23 10:01:39.269205,等待时长：0
+2022-03-23 10:01:39,271 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 选择渠道类别查找元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')
+2022-03-23 10:01:39,281 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 选择渠道类别点击元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[1]')
+2022-03-23 10:01:40,496 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')可见
+2022-03-23 10:01:40,521 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')可见，等待结束。等待的开始时间：2022-03-23 10:01:40.496612,等待的结束时间2022-03-23 10:01:40.520728,等待时长：0
+2022-03-23 10:01:40,522 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 选择渠道类别查找元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')
+2022-03-23 10:01:40,529 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 选择渠道类别点击元素：('xpath', '//*[@id="root"]/div/aside/div/div[2]/div[2]')
+2022-03-23 10:01:41,676 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见
+2022-03-23 10:01:41,699 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - ：元素('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')可见，等待结束。等待的开始时间：2022-03-23 10:01:41.676874,等待的结束时间2022-03-23 10:01:41.699133,等待时长：0
+2022-03-23 10:01:41,700 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 进入规则链页面查找元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-23 10:01:41,710 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 进入规则链页面点击元素：('xpath', '//*[@id="root"]/div/aside/div/ul/li[4]')
+2022-03-23 10:01:41,841 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 等待元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')可见
+2022-03-23 10:01:41,863 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - ：元素('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')可见，等待结束。等待的开始时间：2022-03-23 10:01:41.841598,等待的结束时间2022-03-23 10:01:41.863553,等待时长：0
+2022-03-23 10:01:41,864 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 添加规则链查找元素：('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')
+2022-03-23 10:01:41,872 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 添加规则链点击元素：('xpath', '//*[@id="root"]/div/div/div[2]/div/div[1]/div[2]/div/button')
+2022-03-23 10:01:41,935 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 等待元素('xpath', '//*[@id="ruleChainName"]')可见
+2022-03-23 10:01:42,544 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - ：元素('xpath', '//*[@id="ruleChainName"]')可见，等待结束。等待的开始时间：2022-03-23 10:01:41.936136,等待的结束时间2022-03-23 10:01:42.543959,等待时长：0
+2022-03-23 10:01:42,545 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 添加规则链查找元素：('xpath', '//*[@id="ruleChainName"]')
+2022-03-23 10:01:42,557 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 添加规则链:元素：('xpath', '//*[@id="ruleChainName"]')输入内容：规则链测试
+2022-03-23 10:01:42,650 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 等待元素('xpath', '//*[@id="ruleChainDescription"]')可见
+2022-03-23 10:01:42,673 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - ：元素('xpath', '//*[@id="ruleChainDescription"]')可见，等待结束。等待的开始时间：2022-03-23 10:01:42.650282,等待的结束时间2022-03-23 10:01:42.673221,等待时长：0
+2022-03-23 10:01:42,674 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 查找元素：('xpath', '//*[@id="ruleChainDescription"]')
+2022-03-23 10:01:42,682 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 点击元素：('xpath', '//*[@id="ruleChainDescription"]')
+2022-03-23 10:01:42,731 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 等待元素('xpath', '//*[@id="ruleChainDescription"]')可见
+2022-03-23 10:01:42,745 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - ：元素('xpath', '//*[@id="ruleChainDescription"]')可见，等待结束。等待的开始时间：2022-03-23 10:01:42.731064,等待的结束时间2022-03-23 10:01:42.745028,等待时长：0
+2022-03-23 10:01:42,746 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 查找元素：('xpath', '//*[@id="ruleChainDescription"]')
+2022-03-23 10:01:42,753 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - :元素：('xpath', '//*[@id="ruleChainDescription"]')输入内容：web自动化测试规则链
+2022-03-23 10:01:46,058 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 等待元素('css selector', 'span.anticon.anticon-check > svg')可见
+2022-03-23 10:01:46,282 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - ：元素('css selector', 'span.anticon.anticon-check > svg')可见，等待结束。等待的开始时间：2022-03-23 10:01:46.058287,等待的结束时间2022-03-23 10:01:46.281603,等待时长：0
+2022-03-23 10:01:46,283 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 添加规则链组件查找元素：('css selector', 'span.anticon.anticon-check > svg')
+2022-03-23 10:01:46,290 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 添加规则链组件点击元素：('css selector', 'span.anticon.anticon-check > svg')
+2022-03-23 10:01:46,326 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 等待元素('css selector', 'span.anticon.anticon-rollback > svg')可见
+2022-03-23 10:01:46,346 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - ：元素('css selector', 'span.anticon.anticon-rollback > svg')可见，等待结束。等待的开始时间：2022-03-23 10:01:46.326500,等待的结束时间2022-03-23 10:01:46.346828,等待时长：0
+2022-03-23 10:01:46,347 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 查找元素：('css selector', 'span.anticon.anticon-rollback > svg')
+2022-03-23 10:01:46,355 - D:\work\资料\web自动化测试相关\deviceWebAutoTest\src\main\Logs\2022-03-23\20220323-100120.log - INFO - 点击元素：('css selector', 'span.anticon.anticon-rollback > svg')

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Test Report</title>
+    <style>body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  /* do not increase min-width as some may use split screens */
+  min-width: 800px;
+  color: #999;
+}
+
+h1 {
+  font-size: 24px;
+  color: black;
+}
+
+h2 {
+  font-size: 16px;
+  color: black;
+}
+
+p {
+  color: black;
+}
+
+a {
+  color: #999;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+/******************************
+ * SUMMARY INFORMATION
+ ******************************/
+#environment td {
+  padding: 5px;
+  border: 1px solid #E6E6E6;
+}
+#environment tr:nth-child(odd) {
+  background-color: #f6f6f6;
+}
+
+/******************************
+ * TEST RESULT COLORS
+ ******************************/
+span.passed,
+.passed .col-result {
+  color: green;
+}
+
+span.skipped,
+span.xfailed,
+span.rerun,
+.skipped .col-result,
+.xfailed .col-result,
+.rerun .col-result {
+  color: orange;
+}
+
+span.error,
+span.failed,
+span.xpassed,
+.error .col-result,
+.failed .col-result,
+.xpassed .col-result {
+  color: red;
+}
+
+/******************************
+ * RESULTS TABLE
+ *
+ * 1. Table Layout
+ * 2. Extra
+ * 3. Sorting items
+ *
+ ******************************/
+/*------------------
+ * 1. Table Layout
+ *------------------*/
+#results-table {
+  border: 1px solid #e6e6e6;
+  color: #999;
+  font-size: 12px;
+  width: 100%;
+}
+#results-table th,
+#results-table td {
+  padding: 5px;
+  border: 1px solid #E6E6E6;
+  text-align: left;
+}
+#results-table th {
+  font-weight: bold;
+}
+
+/*------------------
+ * 2. Extra
+ *------------------*/
+.log {
+  background-color: #e6e6e6;
+  border: 1px solid #e6e6e6;
+  color: black;
+  display: block;
+  font-family: "Courier New", Courier, monospace;
+  height: 230px;
+  overflow-y: scroll;
+  padding: 5px;
+  white-space: pre-wrap;
+}
+.log:only-child {
+  height: inherit;
+}
+
+div.image {
+  border: 1px solid #e6e6e6;
+  float: right;
+  height: 240px;
+  margin-left: 5px;
+  overflow: hidden;
+  width: 320px;
+}
+div.image img {
+  width: 320px;
+}
+
+div.video {
+  border: 1px solid #e6e6e6;
+  float: right;
+  height: 240px;
+  margin-left: 5px;
+  overflow: hidden;
+  width: 320px;
+}
+div.video video {
+  overflow: hidden;
+  width: 320px;
+  height: 240px;
+}
+
+.collapsed {
+  display: none;
+}
+
+.expander::after {
+  content: " (show details)";
+  color: #BBB;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.collapser::after {
+  content: " (hide details)";
+  color: #BBB;
+  font-style: italic;
+  cursor: pointer;
+}
+
+/*------------------
+ * 3. Sorting items
+ *------------------*/
+.sortable {
+  cursor: pointer;
+}
+
+.sort-icon {
+  font-size: 0px;
+  float: left;
+  margin-right: 5px;
+  margin-top: 5px;
+  /*triangle*/
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+}
+.inactive .sort-icon {
+  /*finish triangle*/
+  border-top: 8px solid #E6E6E6;
+}
+.asc.active .sort-icon {
+  /*finish triangle*/
+  border-bottom: 8px solid #999;
+}
+.desc.active .sort-icon {
+  /*finish triangle*/
+  border-top: 8px solid #999;
+}
+</style></head>
+  <body onLoad="init()">
+    <script>/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+function toArray(iter) {
+    if (iter === null) {
+        return null;
+    }
+    return Array.prototype.slice.call(iter);
+}
+
+function find(selector, elem) { // eslint-disable-line no-redeclare
+    if (!elem) {
+        elem = document;
+    }
+    return elem.querySelector(selector);
+}
+
+function findAll(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return toArray(elem.querySelectorAll(selector));
+}
+
+function sortColumn(elem) {
+    toggleSortStates(elem);
+    const colIndex = toArray(elem.parentNode.childNodes).indexOf(elem);
+    let key;
+    if (elem.classList.contains('result')) {
+        key = keyResult;
+    } else if (elem.classList.contains('links')) {
+        key = keyLink;
+    } else {
+        key = keyAlpha;
+    }
+    sortTable(elem, key(colIndex));
+}
+
+function showAllExtras() { // eslint-disable-line no-unused-vars
+    findAll('.col-result').forEach(showExtras);
+}
+
+function hideAllExtras() { // eslint-disable-line no-unused-vars
+    findAll('.col-result').forEach(hideExtras);
+}
+
+function showExtras(colresultElem) {
+    const extras = colresultElem.parentNode.nextElementSibling;
+    const expandcollapse = colresultElem.firstElementChild;
+    extras.classList.remove('collapsed');
+    expandcollapse.classList.remove('expander');
+    expandcollapse.classList.add('collapser');
+}
+
+function hideExtras(colresultElem) {
+    const extras = colresultElem.parentNode.nextElementSibling;
+    const expandcollapse = colresultElem.firstElementChild;
+    extras.classList.add('collapsed');
+    expandcollapse.classList.remove('collapser');
+    expandcollapse.classList.add('expander');
+}
+
+function showFilters() {
+    const filterItems = document.getElementsByClassName('filter');
+    for (let i = 0; i < filterItems.length; i++)
+        filterItems[i].hidden = false;
+}
+
+function addCollapse() {
+    // Add links for show/hide all
+    const resulttable = find('table#results-table');
+    const showhideall = document.createElement('p');
+    showhideall.innerHTML = '<a href="javascript:showAllExtras()">Show all details</a> / ' +
+                            '<a href="javascript:hideAllExtras()">Hide all details</a>';
+    resulttable.parentElement.insertBefore(showhideall, resulttable);
+
+    // Add show/hide link to each result
+    findAll('.col-result').forEach(function(elem) {
+        const collapsed = getQueryParameter('collapsed') || 'Passed';
+        const extras = elem.parentNode.nextElementSibling;
+        const expandcollapse = document.createElement('span');
+        if (extras.classList.contains('collapsed')) {
+            expandcollapse.classList.add('expander');
+        } else if (collapsed.includes(elem.innerHTML)) {
+            extras.classList.add('collapsed');
+            expandcollapse.classList.add('expander');
+        } else {
+            expandcollapse.classList.add('collapser');
+        }
+        elem.appendChild(expandcollapse);
+
+        elem.addEventListener('click', function(event) {
+            if (event.currentTarget.parentNode.nextElementSibling.classList.contains('collapsed')) {
+                showExtras(event.currentTarget);
+            } else {
+                hideExtras(event.currentTarget);
+            }
+        });
+    });
+}
+
+function getQueryParameter(name) {
+    const match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+function init () { // eslint-disable-line no-unused-vars
+    resetSortHeaders();
+
+    addCollapse();
+
+    showFilters();
+
+    sortColumn(find('.initial-sort'));
+
+    findAll('.sortable').forEach(function(elem) {
+        elem.addEventListener('click',
+            function() {
+                sortColumn(elem);
+            }, false);
+    });
+}
+
+function sortTable(clicked, keyFunc) {
+    const rows = findAll('.results-table-row');
+    const reversed = !clicked.classList.contains('asc');
+    const sortedRows = sort(rows, keyFunc, reversed);
+    /* Whole table is removed here because browsers acts much slower
+     * when appending existing elements.
+     */
+    const thead = document.getElementById('results-table-head');
+    document.getElementById('results-table').remove();
+    const parent = document.createElement('table');
+    parent.id = 'results-table';
+    parent.appendChild(thead);
+    sortedRows.forEach(function(elem) {
+        parent.appendChild(elem);
+    });
+    document.getElementsByTagName('BODY')[0].appendChild(parent);
+}
+
+function sort(items, keyFunc, reversed) {
+    const sortArray = items.map(function(item, i) {
+        return [keyFunc(item), i];
+    });
+
+    sortArray.sort(function(a, b) {
+        const keyA = a[0];
+        const keyB = b[0];
+
+        if (keyA == keyB) return 0;
+
+        if (reversed) {
+            return keyA < keyB ? 1 : -1;
+        } else {
+            return keyA > keyB ? 1 : -1;
+        }
+    });
+
+    return sortArray.map(function(item) {
+        const index = item[1];
+        return items[index];
+    });
+}
+
+function keyAlpha(colIndex) {
+    return function(elem) {
+        return elem.childNodes[1].childNodes[colIndex].firstChild.data.toLowerCase();
+    };
+}
+
+function keyLink(colIndex) {
+    return function(elem) {
+        const dataCell = elem.childNodes[1].childNodes[colIndex].firstChild;
+        return dataCell == null ? '' : dataCell.innerText.toLowerCase();
+    };
+}
+
+function keyResult(colIndex) {
+    return function(elem) {
+        const strings = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed',
+            'Skipped', 'Passed'];
+        return strings.indexOf(elem.childNodes[1].childNodes[colIndex].firstChild.data);
+    };
+}
+
+function resetSortHeaders() {
+    findAll('.sort-icon').forEach(function(elem) {
+        elem.parentNode.removeChild(elem);
+    });
+    findAll('.sortable').forEach(function(elem) {
+        const icon = document.createElement('div');
+        icon.className = 'sort-icon';
+        icon.textContent = 'vvv';
+        elem.insertBefore(icon, elem.firstChild);
+        elem.classList.remove('desc', 'active');
+        elem.classList.add('asc', 'inactive');
+    });
+}
+
+function toggleSortStates(elem) {
+    //if active, toggle between asc and desc
+    if (elem.classList.contains('active')) {
+        elem.classList.toggle('asc');
+        elem.classList.toggle('desc');
+    }
+
+    //if inactive, reset all other functions and add ascending active
+    if (elem.classList.contains('inactive')) {
+        resetSortHeaders();
+        elem.classList.remove('inactive');
+        elem.classList.add('active');
+    }
+}
+
+function isAllRowsHidden(value) {
+    return value.hidden == false;
+}
+
+function filterTable(elem) { // eslint-disable-line no-unused-vars
+    const outcomeAtt = 'data-test-result';
+    const outcome = elem.getAttribute(outcomeAtt);
+    const classOutcome = outcome + ' results-table-row';
+    const outcomeRows = document.getElementsByClassName(classOutcome);
+
+    for(let i = 0; i < outcomeRows.length; i++){
+        outcomeRows[i].hidden = !elem.checked;
+    }
+
+    const rows = findAll('.results-table-row').filter(isAllRowsHidden);
+    const allRowsHidden = rows.length == 0 ? true : false;
+    const notFoundMessage = document.getElementById('not-found-message');
+    notFoundMessage.hidden = !allRowsHidden;
+}
+</script>
+    <h1>设备管理系统web自动化测试报告</h1>
+    <p>Report generated on 23-Mar-2022 at 10:04:51 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
+    <h2>Environment</h2>
+    <table id="environment">
+      <tr>
+        <td>JAVA_HOME</td>
+        <td>C:\Program Files\Java\jdk1.8.0_121</td></tr>
+      <tr>
+        <td>Packages</td>
+        <td>{"pluggy": "1.0.0", "py": "1.10.0", "pytest": "6.2.5"}</td></tr>
+      <tr>
+        <td>Platform</td>
+        <td>Windows-10-10.0.19044-SP0</td></tr>
+      <tr>
+        <td>Plugins</td>
+        <td>{"allure-pytest": "2.9.45", "html": "3.1.1", "metadata": "1.11.0", "parallel": "0.1.0"}</td></tr>
+      <tr>
+        <td>Python</td>
+        <td>3.9.6</td></tr></table>
+    <h2>Summary</h2>
+    <p>9 tests ran in 82.74 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">9 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <h2>Results</h2>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable result initial-sort" col="result">Result</th>
+          <th>用例</th>
+          <th>用例描述</th>
+          <th class="sortable time" col="time">操作时间</th></tr>
+        <tr hidden="true" id="not-found-message">
+          <th colspan="4">No results found. Try to check the filters</th></tr></thead>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td>test_deviceManagement.py::TestDemo::test_addRuleChain</td>
+          <td>
+        添加规则链测试用例
+        </td>
+          <td class="col-time">2022-03-23 10:04:51</td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">(&apos;Captured log call&apos;, &apos;INFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/div[2]/div[1]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/div[2]/div[1]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:03:49.955664,等待的结束时间2022-03-23 10:03:49.976577,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 选择渠道类别查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/div[2]/div[1]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 选择渠道类别点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/div[2]/div[1]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/div[2]/div[2]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/div[2]/div[2]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:03:51.175265,等待的结束时间2022-03-23 10:03:51.199475,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 选择渠道类别查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/div[2]/div[2]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 选择渠道类别点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/div[2]/div[2]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[4]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[4]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:03:52.403583,等待的结束时间2022-03-23 10:03:52.424526,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入规则链页面查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[4]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入规则链页面点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[4]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div[1]/div[2]/div/button\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div[1]/div[2]/div/button\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:03:52.560471,等待的结束时间2022-03-23 10:03:52.587402,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加规则链查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div[1]/div[2]/div/button\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加规则链点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div[1]/div[2]/div/button\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainName&quot;]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainName&quot;]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:03:52.677132,等待的结束时间2022-03-23 10:03:53.253826,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加规则链查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainName&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加规则链:元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainName&quot;]\&apos;)输入内容：规则链测试\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainDescription&quot;]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainDescription&quot;]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:03:53.360541,等待的结束时间2022-03-23 10:03:53.390462,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainDescription&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainDescription&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainDescription&quot;]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainDescription&quot;]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:03:53.432350,等待的结束时间2022-03-23 10:03:53.447240,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainDescription&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 :元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainDescription&quot;]\&apos;)输入内容：web自动化测试规则链\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:03:56.695335,等待的结束时间2022-03-23 10:03:57.243720,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进行滚动条操作(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:03:58.278491,等待的结束时间2022-03-23 10:03:58.301464,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[3]/div\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;name&quot;]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;name&quot;]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:02.397146,等待的结束时间2022-03-23 10:04:02.422926,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;name&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 :元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;name&quot;]\&apos;)输入内容：save to MySQL\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;/html/body/div[5]/div/div[2]/div/div[2]/div[3]/button[2]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;/html/body/div[5]/div/div[2]/div/div[2]/div[3]/button[2]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:02.549591,等待的结束时间2022-03-23 10:04:02.569422,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;/html/body/div[5]/div/div[2]/div/div[2]/div[3]/button[2]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, \&apos;/html/body/div[5]/div/div[2]/div/div[2]/div[3]/button[2]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:02.636541,等待的结束时间2022-03-23 10:04:02.671861,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进行滚动条操作(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:03.694681,等待的结束时间2022-03-23 10:04:03.745990,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[1]/div[7]/div[2]/div/div\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;name&quot;]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;name&quot;]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:07.891877,等待的结束时间2022-03-23 10:04:08.570249,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;name&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 :元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;name&quot;]\&apos;)输入内容：车辆信息\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;dataType&quot;]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;dataType&quot;]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:08.676908,等待的结束时间2022-03-23 10:04:08.699619,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;dataType&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 :元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;dataType&quot;]\&apos;)输入内容：ruleTab/vehicleInfo\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;payloadFormat&quot;]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;payloadFormat&quot;]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:08.875840,等待的结束时间2022-03-23 10:04:08.902825,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;payloadFormat&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 :元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;payloadFormat&quot;]\&apos;)输入内容：{&quot;devId&quot;: &quot;123456&quot;}\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;type&quot;]/label[1]/span[2]/div\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;type&quot;]/label[1]/span[2]/div\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:09.279862,等待的结束时间2022-03-23 10:04:09.305160,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;type&quot;]/label[1]/span[2]/div\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;type&quot;]/label[1]/span[2]/div\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;/html/body/div[5]/div/div[2]/div/div[2]/div[2]/form/div[9]/div[2]/div/div/div/form/div[2]/div[2]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;/html/body/div[5]/div/div[2]/div/div[2]/div[2]/form/div[9]/div[2]/div/div/div/form/div[2]/div[2]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:09.395234,等待的结束时间2022-03-23 10:04:09.418047,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;/html/body/div[5]/div/div[2]/div/div[2]/div[2]/form/div[9]/div[2]/div/div/div/form/div[2]/div[2]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, \&apos;/html/body/div[5]/div/div[2]/div/div[2]/div[2]/form/div[9]/div[2]/div/div/div/form/div[2]/div[2]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[4]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[4]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:10.064832,等待的结束时间2022-03-23 10:04:10.097642,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[4]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[4]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]&quot;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]&quot;)可见，等待结束。等待的开始时间：2022-03-23 10:04:11.149330,等待的结束时间2022-03-23 10:04:11.189055,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[3]/div/div[1]/div[3]/div[1]&quot;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[3]/div/div[1]/div[3]/div[1]&quot;)可见，等待结束。等待的开始时间：2022-03-23 10:04:11.191050,等待的结束时间2022-03-23 10:04:11.214053,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[3]/div/div[1]/div[3]/div[1]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 拖动元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]&quot;)到(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[3]/div/div[1]/div[3]/div[1]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div/input\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div/input\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:11.784963,等待的结束时间2022-03-23 10:04:11.806905,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div/input\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div/input\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div/ul/li[1]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div/ul/li[1]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:11.861758,等待的结束时间2022-03-23 10:04:11.883705,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div/ul/li[1]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div/ul/li[1]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/button\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/button\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:11.927582,等待的结束时间2022-03-23 10:04:11.948526,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/button\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/button\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-check &gt; svg\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-check &gt; svg\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:12.000148,等待的结束时间2022-03-23 10:04:12.047986,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加规则链组件查找元素：(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-check &gt; svg\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加规则链组件点击元素：(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-check &gt; svg\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-rollback &gt; svg\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-rollback &gt; svg\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:12.094179,等待的结束时间2022-03-23 10:04:12.113681,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-rollback &gt; svg\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-rollback &gt; svg\&apos;)&apos;)</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td>test_deviceManagement.py::TestDemo::test_editRuleChain</td>
+          <td>
+        编辑规则链测试用例
+        </td>
+          <td class="col-time">2022-03-23 10:04:51</td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">(&apos;Captured log call&apos;, &apos;INFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[4]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[4]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:12.195738,等待的结束时间2022-03-23 10:04:12.215510,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入规则链页面查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[4]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入规则链页面点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[4]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div[3]/div/div/div/div/div/div/table/tbody/tr/td[6]/div/button[1]&quot;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div[3]/div/div/div/div/div/div/table/tbody/tr/td[6]/div/button[1]&quot;)可见，等待结束。等待的开始时间：2022-03-23 10:04:12.279601,等待的结束时间2022-03-23 10:04:12.327472,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div[3]/div/div/div/div/div/div/table/tbody/tr/td[6]/div/button[1]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div[3]/div/div/div/div/div/div/table/tbody/tr/td[6]/div/button[1]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-edit &gt; svg\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-edit &gt; svg\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:12.425421,等待的结束时间2022-03-23 10:04:12.444658,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-edit &gt; svg\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-edit &gt; svg\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainName&quot;]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainName&quot;]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:12.493860,等待的结束时间2022-03-23 10:04:13.060258,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainName&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 :元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainName&quot;]\&apos;)输入内容：规则链测试2\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainName&quot;]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainName&quot;]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:13.161020,等待的结束时间2022-03-23 10:04:13.192933,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainName&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进行获取元素文本内容操作(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;ruleChainName&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;css selector\&apos;, \&apos;div.ant-modal-footer &gt; button.ant-btn.ant-btn-primary &gt; span\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;css selector\&apos;, \&apos;div.ant-modal-footer &gt; button.ant-btn.ant-btn-primary &gt; span\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:13.211792,等待的结束时间2022-03-23 10:04:13.232651,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;css selector\&apos;, \&apos;div.ant-modal-footer &gt; button.ant-btn.ant-btn-primary &gt; span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;css selector\&apos;, \&apos;div.ant-modal-footer &gt; button.ant-btn.ant-btn-primary &gt; span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-rollback &gt; svg\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-rollback &gt; svg\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:13.289436,等待的结束时间2022-03-23 10:04:13.307215,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-rollback &gt; svg\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;css selector\&apos;, \&apos;span.anticon.anticon-rollback &gt; svg\&apos;)&apos;)</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td>test_deviceManagement.py::TestDemo::test_addDeviceSettings</td>
+          <td>
+        添加设备配置测试用例
+        </td>
+          <td class="col-time">2022-03-23 10:04:51</td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">(&apos;Captured log call&apos;, &apos;INFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/aside/div/ul/li[3]/span\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/aside/div/ul/li[3]/span\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:14.724255,等待的结束时间2022-03-23 10:04:14.760382,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入设备配置页面查找元素：(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/aside/div/ul/li[3]/span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入设备配置页面点击元素：(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/aside/div/ul/li[3]/span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;css selector\&apos;, \&apos;button.ant-btn.ant-btn-primary &gt; span\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;css selector\&apos;, \&apos;button.ant-btn.ant-btn-primary &gt; span\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:14.845741,等待的结束时间2022-03-23 10:04:14.867684,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备配置查找元素：(\&apos;css selector\&apos;, \&apos;button.ant-btn.ant-btn-primary &gt; span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备配置点击元素：(\&apos;css selector\&apos;, \&apos;button.ant-btn.ant-btn-primary &gt; span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, &quot;(//input[@id=\&apos;profileName\&apos;])[2]&quot;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, &quot;(//input[@id=\&apos;profileName\&apos;])[2]&quot;)可见，等待结束。等待的开始时间：2022-03-23 10:04:14.953095,等待的结束时间2022-03-23 10:04:15.570563,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备配置查找元素：(\&apos;xpath\&apos;, &quot;(//input[@id=\&apos;profileName\&apos;])[2]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备配置:元素：(\&apos;xpath\&apos;, &quot;(//input[@id=\&apos;profileName\&apos;])[2]&quot;)输入内容：设备配置测试\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;id\&apos;, \&apos;profileDesc\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;id\&apos;, \&apos;profileDesc\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:18.858866,等待的结束时间2022-03-23 10:04:18.882641,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;id\&apos;, \&apos;profileDesc\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 :元素：(\&apos;id\&apos;, \&apos;profileDesc\&apos;)输入内容：设备配置测试\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;id\&apos;, \&apos;profileDesc\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;id\&apos;, \&apos;profileDesc\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:18.973447,等待的结束时间2022-03-23 10:04:18.989836,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;id\&apos;, \&apos;profileDesc\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;id\&apos;, \&apos;profileDesc\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;id\&apos;, \&apos;control-hooks_filterTopic\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;id\&apos;, \&apos;control-hooks_filterTopic\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:19.140954,等待的结束时间2022-03-23 10:04:19.181877,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;id\&apos;, \&apos;control-hooks_filterTopic\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 :元素：(\&apos;id\&apos;, \&apos;control-hooks_filterTopic\&apos;)输入内容：webTest\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[2]/button[2]&quot;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[2]/button[2]&quot;)可见，等待结束。等待的开始时间：2022-03-23 10:04:19.290329,等待的结束时间2022-03-23 10:04:19.313915,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[2]/button[2]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[2]/button[2]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;rc-tabs-2-panel-preConfig\&apos;]/form/div/div[2]/div/div/div/div&quot;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;rc-tabs-2-panel-preConfig\&apos;]/form/div/div[2]/div/div/div/div&quot;)可见，等待结束。等待的开始时间：2022-03-23 10:04:20.399948,等待的结束时间2022-03-23 10:04:20.441056,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;rc-tabs-2-panel-preConfig\&apos;]/form/div/div[2]/div/div/div/div&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;rc-tabs-2-panel-preConfig\&apos;]/form/div/div[2]/div/div/div/div&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, &quot;//div[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[2]/button[2]/span&quot;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, &quot;//div[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[2]/button[2]/span&quot;)可见，等待结束。等待的开始时间：2022-03-23 10:04:21.556061,等待的结束时间2022-03-23 10:04:21.579735,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, &quot;//div[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[2]/button[2]/span&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, &quot;//div[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[2]/button[2]/span&quot;)&apos;)</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td>test_deviceManagement.py::TestDemo::test_editDeviceSettings</td>
+          <td>
+        编辑设备配置测试用例
+        </td>
+          <td class="col-time">2022-03-23 10:04:51</td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">(&apos;Captured log call&apos;, &apos;INFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/aside/div/ul/li[3]/span\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/aside/div/ul/li[3]/span\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:21.636851,等待的结束时间2022-03-23 10:04:21.652814,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入设备配置页面查找元素：(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/aside/div/ul/li[3]/span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入设备配置页面点击元素：(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/aside/div/ul/li[3]/span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div/div/div/div/div/table/tbody/tr/td[8]/button[2]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div/div/div/div/div/table/tbody/tr/td[8]/button[2]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:21.794699,等待的结束时间2022-03-23 10:04:21.940394,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 编辑设备配置查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div/div/div/div/div/table/tbody/tr/td[8]/button[2]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 编辑设备配置点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div/div/div/div/div/table/tbody/tr/td[8]/button[2]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, &quot;(//input[@id=\&apos;profileName\&apos;])[2]&quot;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, &quot;(//input[@id=\&apos;profileName\&apos;])[2]&quot;)可见，等待结束。等待的开始时间：2022-03-23 10:04:24.059429,等待的结束时间2022-03-23 10:04:24.080484,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 编辑设备配置查找元素：(\&apos;xpath\&apos;, &quot;(//input[@id=\&apos;profileName\&apos;])[2]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 编辑设备配置:元素：(\&apos;xpath\&apos;, &quot;(//input[@id=\&apos;profileName\&apos;])[2]&quot;)输入内容：设备配置测试2\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;profileDesc\&apos;]&quot;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;profileDesc\&apos;]&quot;)可见，等待结束。等待的开始时间：2022-03-23 10:04:24.222869,等待的结束时间2022-03-23 10:04:24.245108,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 编辑设备配置查找元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;profileDesc\&apos;]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 编辑设备配置:元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;profileDesc\&apos;]&quot;)输入内容：设备配置测试2\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[1]/div[1]/div[1]/div/div[3]&quot;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[1]/div[1]/div[1]/div/div[3]&quot;)可见，等待结束。等待的开始时间：2022-03-23 10:04:24.345753,等待的结束时间2022-03-23 10:04:24.368196,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 编辑设备配置查找元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[1]/div[1]/div[1]/div/div[3]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 编辑设备配置点击元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[1]/div[1]/div[1]/div/div[3]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;rc-tabs-3-panel-preConfig\&apos;]/form/div/div[2]/div/div/div/div&quot;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;rc-tabs-3-panel-preConfig\&apos;]/form/div/div[2]/div/div/div/div&quot;)可见，等待结束。等待的开始时间：2022-03-23 10:04:24.445622,等待的结束时间2022-03-23 10:04:24.468794,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 编辑设备配置查找元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;rc-tabs-3-panel-preConfig\&apos;]/form/div/div[2]/div/div/div/div&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 编辑设备配置点击元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;rc-tabs-3-panel-preConfig\&apos;]/form/div/div[2]/div/div/div/div&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[2]/button[2]&quot;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[2]/button[2]&quot;)可见，等待结束。等待的开始时间：2022-03-23 10:04:26.627524,等待的结束时间2022-03-23 10:04:26.648606,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 编辑设备配置查找元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[2]/button[2]&quot;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 编辑设备配置点击元素：(\&apos;xpath\&apos;, &quot;//*[@id=\&apos;root\&apos;]/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div[2]/div/div[2]/button[2]&quot;)&apos;)</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td>test_deviceManagement.py::TestDemo::test_addDevice</td>
+          <td>
+        添加设备测试用例
+        </td>
+          <td class="col-time">2022-03-23 10:04:51</td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">(&apos;Captured log call&apos;, &apos;INFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[2]/span\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[2]/span\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:26.713069,等待的结束时间2022-03-23 10:04:26.740982,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入设备列表页面查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[2]/span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入设备列表页面点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[2]/span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[1]/div[2]/div/button\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[1]/div[2]/div/button\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:26.960700,等待的结束时间2022-03-23 10:04:26.986010,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备页面查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[1]/div[2]/div/button\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备页面点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[1]/div[2]/div/button\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;(//input[@id=&quot;deviceName&quot;])[2]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;(//input[@id=&quot;deviceName&quot;])[2]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:27.069210,等待的结束时间2022-03-23 10:04:27.679871,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备页面查找元素：(\&apos;xpath\&apos;, \&apos;(//input[@id=&quot;deviceName&quot;])[2]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备页面点击元素：(\&apos;xpath\&apos;, \&apos;(//input[@id=&quot;deviceName&quot;])[2]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;(//input[@id=&quot;deviceName&quot;])[2]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;(//input[@id=&quot;deviceName&quot;])[2]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:27.738715,等待的结束时间2022-03-23 10:04:27.751679,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备页面查找元素：(\&apos;xpath\&apos;, \&apos;(//input[@id=&quot;deviceName&quot;])[2]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备页面:元素：(\&apos;xpath\&apos;, \&apos;(//input[@id=&quot;deviceName&quot;])[2]\&apos;)输入内容：web自动化测试设备\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;deviceIdNo&quot;]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;deviceIdNo&quot;]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:27.834460,等待的结束时间2022-03-23 10:04:27.855402,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备页面查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;deviceIdNo&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备页面:元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;deviceIdNo&quot;]\&apos;)输入内容：test-123456\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;credentialsValueName&quot;]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;credentialsValueName&quot;]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:39.516745,等待的结束时间2022-03-23 10:04:39.541677,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备页面查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;credentialsValueName&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备页面:元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;credentialsValueName&quot;]\&apos;)输入内容：webtest123456\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;credentialsValuePassword&quot;]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;credentialsValuePassword&quot;]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:39.671327,等待的结束时间2022-03-23 10:04:39.695285,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备页面查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;credentialsValuePassword&quot;]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 添加设备页面:元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;credentialsValuePassword&quot;]\&apos;)输入内容：webtest123456&apos;)</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td>test_deviceManagement.py::TestDemo::test_delDevice</td>
+          <td>
+        删除设备测试用例
+        </td>
+          <td class="col-time">2022-03-23 10:04:51</td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">(&apos;Captured log call&apos;, &apos;INFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[2]/span\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[2]/span\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:43.037822,等待的结束时间2022-03-23 10:04:43.079129,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入设备列表页面查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[2]/span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入设备列表页面点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[2]/span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div/div/div/div/div/table/tbody/tr/td[9]/div/button[3]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div/div/div/div/div/table/tbody/tr/td[9]/div/button[3]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:43.560687,等待的结束时间2022-03-23 10:04:43.584846,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div/div/div/div/div/table/tbody/tr/td[9]/div/button[3]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div/div/div/div/div/table/tbody/tr/td[9]/div/button[3]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;css selector\&apos;, \&apos;div.ant-modal-confirm-btns &gt; button.ant-btn.ant-btn-primary\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;css selector\&apos;, \&apos;div.ant-modal-confirm-btns &gt; button.ant-btn.ant-btn-primary\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:43.640485,等待的结束时间2022-03-23 10:04:44.235295,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 删除设备查找元素：(\&apos;css selector\&apos;, \&apos;div.ant-modal-confirm-btns &gt; button.ant-btn.ant-btn-primary\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 删除设备点击元素：(\&apos;css selector\&apos;, \&apos;div.ant-modal-confirm-btns &gt; button.ant-btn.ant-btn-primary\&apos;)&apos;)</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td>test_deviceManagement.py::TestDemo::test_delDeviceSettings</td>
+          <td>
+        删除设备配置测试用例
+        </td>
+          <td class="col-time">2022-03-23 10:04:51</td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">(&apos;Captured log call&apos;, &apos;INFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/aside/div/ul/li[3]/span\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/aside/div/ul/li[3]/span\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:44.324221,等待的结束时间2022-03-23 10:04:44.350928,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入设备配置页面查找元素：(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/aside/div/ul/li[3]/span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入设备配置页面点击元素：(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/aside/div/ul/li[3]/span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div/div/div/div/div/table/tbody/tr/td[8]/button[3]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div/div/div/div/div/table/tbody/tr/td[8]/button[3]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:44.622508,等待的结束时间2022-03-23 10:04:44.795257,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 删除设备配置查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div/div/div/div/div/table/tbody/tr/td[8]/button[3]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 删除设备配置点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[2]/div/div/div[2]/div/div/div/div/div/table/tbody/tr/td[8]/button[3]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;css selector\&apos;, \&apos;div.ant-modal-confirm-btns &gt; button.ant-btn.ant-btn-primary\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;css selector\&apos;, \&apos;div.ant-modal-confirm-btns &gt; button.ant-btn.ant-btn-primary\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:44.849630,等待的结束时间2022-03-23 10:04:45.432510,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;css selector\&apos;, \&apos;div.ant-modal-confirm-btns &gt; button.ant-btn.ant-btn-primary\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;css selector\&apos;, \&apos;div.ant-modal-confirm-btns &gt; button.ant-btn.ant-btn-primary\&apos;)&apos;)</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td>test_deviceManagement.py::TestDemo::test_delRuleChain</td>
+          <td>
+        删除规则链测试用例
+        </td>
+          <td class="col-time">2022-03-23 10:04:51</td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">(&apos;Captured log call&apos;, &apos;INFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[4]\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[4]\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:45.515372,等待的结束时间2022-03-23 10:04:45.555695,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入规则链页面查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[4]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 进入规则链页面点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/aside/div/ul/li[4]\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/div/div[2]/div/div[3]/div/div/div/div/div/div/table/tbody/tr/td[6]/div/button[2]/span\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/div/div[2]/div/div[3]/div/div/div/div/div/div/table/tbody/tr/td[6]/div/button[2]/span\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:45.844335,等待的结束时间2022-03-23 10:04:45.998032,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 查找元素：(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/div/div[2]/div/div[3]/div/div/div/div/div/div/table/tbody/tr/td[6]/div/button[2]/span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 点击元素：(\&apos;xpath\&apos;, \&apos;//div[@id=&quot;root&quot;]/div/div/div[2]/div/div[3]/div/div/div/div/div/div/table/tbody/tr/td[6]/div/button[2]/span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;css selector\&apos;, \&apos;div.ant-modal-footer &gt; button.ant-btn.ant-btn-primary &gt; span\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;css selector\&apos;, \&apos;div.ant-modal-footer &gt; button.ant-btn.ant-btn-primary &gt; span\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:46.063892,等待的结束时间2022-03-23 10:04:46.621791,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 删除规则链查找元素：(\&apos;css selector\&apos;, \&apos;div.ant-modal-footer &gt; button.ant-btn.ant-btn-primary &gt; span\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 删除规则链点击元素：(\&apos;css selector\&apos;, \&apos;div.ant-modal-footer &gt; button.ant-btn.ant-btn-primary &gt; span\&apos;)&apos;)</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td>test_deviceManagement.py::TestDemo::test_logOut</td>
+          <td>
+        退出登录测试用例
+        </td>
+          <td class="col-time">2022-03-23 10:04:51</td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">(&apos;Captured log call&apos;, &apos;INFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 等待元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[1]/div[2]/button\&apos;)可见\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 ：元素(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[1]/div[2]/button\&apos;)可见，等待结束。等待的开始时间：2022-03-23 10:04:46.683070,等待的结束时间2022-03-23 10:04:46.709353,等待时长：0\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 退出登录查找元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[1]/div[2]/button\&apos;)\nINFO     D:\\work\\资料\\web自动化测试相关\\deviceWebAutoTest\\src\\main\\Logs\\2022-03-23\\20220323-100328.log:log.py:42 退出登录点击元素：(\&apos;xpath\&apos;, \&apos;//*[@id=&quot;root&quot;]/div/div/div[1]/div[2]/button\&apos;)&apos;)</div></td></tr></tbody></table></body></html>
